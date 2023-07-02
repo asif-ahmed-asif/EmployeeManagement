@@ -8,11 +8,10 @@ import { environment } from 'src/environments/environment.development';
   providedIn: 'root'
 })
 export class EmployeesService {
-  baseApiUrl : string = environment.baseApiUrl;
 
   constructor(private http : HttpClient) { }
 
   getAllEmployees() : Observable<Employee[]>{
-    return this.http.get<Employee[]>(this.baseApiUrl + 'api/employee');
+    return this.http.get<Employee[]>(environment.baseApiUrl + 'api/employee');
   }
 }

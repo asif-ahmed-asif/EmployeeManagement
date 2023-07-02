@@ -13,8 +13,8 @@ export class EmployeesListComponent implements OnInit {
   ngOnInit(): void {
     this.employeesService.getAllEmployees()
     .subscribe({
-      next : (results) => {
-        this.employees = results;
+      next : (employees) => {
+        this.employees = employees;
       },
       error : (response) => {
 
