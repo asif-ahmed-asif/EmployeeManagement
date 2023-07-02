@@ -9,6 +9,6 @@ namespace FullStack.API.Data
         {
         }
 
-        DbSet<Employee> Employees { get; set; } 
+       public DbSet<Employee> Employees { get; set; } 
     }
 }
