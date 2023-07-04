@@ -21,12 +21,12 @@ namespace FullStack.API.Controllers
             return Ok(await _db.Employees.ToListAsync());
         }
         [HttpPost]
-        public async Task<ActionResult<Employee>> AddEmployee(Employee employee)
+        public async Task<ActionResult<Employee>> AddEmployee([FromBody] Employee employee)
         {
             employee.Id = Guid.NewGuid();
             _db.Employees.Add(employee);
            await _db.SaveChangesAsync();
-            return Ok("Employee created!");
+            return Ok(employee);
         }
     }
 }

@@ -1,0 +1,43 @@
+<div class="container mt-4">
+  <div class="row">
+      <div class="text-end">
+        <button routerLink="/employees" class="btn btn-primary">Employee List</button>
+      </div>
+  </div>
+</div>
+<div class="pt-3">
+  <div class="row">
+      <div class="mx-auto col-10 col-md-8 col-lg-6">
+          <h2>Add Employee</h2>
+          <hr />
+          <form #form="ngForm" (ngSubmit)="addEmployee()">
+            <div class="mb-3">
+              <label for="name" class="form-label">Name</label>
+              <input type="text" class="form-control" id="name" name="name"
+              [(ngModel)]="addEmployeeRequest.name">
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" name="email"
+              [(ngModel)]="addEmployeeRequest.email">
+            </div>
+            <div class="mb-3">
+              <label for="phone" class="form-label">Phone</label>
+              <input type="number" class="form-control" id="phone" name="phone"
+              [(ngModel)]="addEmployeeRequest.phone">
+            </div>
+            <div class="mb-3">
+              <label for="salary" class="form-label">Salary</label>
+              <input type="number" class="form-control" id="salary" name="salary"
+              [(ngModel)]="addEmployeeRequest.salary">
+            </div>
+            <div class="mb-3">
+              <label for="department" class="form-label">Department</label>
+              <input type="text" class="form-control" id="department" name="department"
+              [(ngModel)]="addEmployeeRequest.department">
+            </div>
+              <button type="submit" class="btn btn-success" style="width: 200px;">Submit</button>
+          </form>
+      </div>
+  </div>
+</div>
