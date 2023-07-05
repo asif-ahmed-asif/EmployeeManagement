@@ -28,12 +28,12 @@
           <td>{{employee.salary}}</td>
           <td>{{employee.department}}</td>
           <td>
-            <div class="w-25 btn-group" role="group">
+            <div class="w-20 btn-group" role="group">
               <a [routerLink]="['/employees/edit',employee.id]" class="btn btn-primary mx-2">
-                  <i class="bi bi-pencil-square"></i>Edit
+                <i class="bi bi-pencil-square"></i> Edit
               </a>
               <a class="btn btn-danger" (click)="deleteEmployee(employee.id)">
-                  <i class="bi bi-trash3 mx-2"></i>Delete
+                <i class="bi bi-trash3 mx-2"></i>Delete
               </a>
             </div>
           </td>
