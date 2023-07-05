@@ -16,6 +16,7 @@
           <th scope="col">Phone</th>
           <th scope="col">Salary</th>
           <th scope="col">Department</th>
+          <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
@@ -26,6 +27,8 @@
           <td>{{employee.phone}}</td>
           <td>{{employee.salary}}</td>
           <td>{{employee.department}}</td>
+          <td><a class="btn btn-success" [routerLink]="['/employees/edit',employee.id]">
+            <i class="bi bi-pencil-square"></i> Edit</a></td>
         </tr>
       </tbody>
     </table>

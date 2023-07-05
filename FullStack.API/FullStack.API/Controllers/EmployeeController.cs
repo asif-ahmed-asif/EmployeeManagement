@@ -28,5 +28,32 @@ namespace FullStack.API.Controllers
            await _db.SaveChangesAsync();
             return Ok(employee);
         }
+        [HttpGet("{id:Guid}")]
+        public async Task<ActionResult<Employee>> GetEmployee([FromRoute] Guid id)
+        {
+            var employee = await _db.Employees.FindAsync(id);
+            if (employee == null)
+            {
+                return NotFound();
+            }
+            return Ok(employee);
+        }
+        [HttpPut]
+        public async Task<ActionResult<Employee>> EditEmployee([FromBody] Employee employee)
+        {
+            var employeeDetails = await _db.Employees.FindAsync(employee.Id);
+            if (employeeDetails == null)
+            {
+                return NotFound();
+            }
+            employeeDetails.Name = employee.Name;
+            employeeDetails.Email = employee.Email;
+            employeeDetails.Phone = employee.Phone;
+            employeeDetails.Salary = employee.Salary;
+            employeeDetails.Department = employee.Department;
+            await _db.SaveChangesAsync();
+            return Ok(employeeDetails);
+        }
+
     }
 }
