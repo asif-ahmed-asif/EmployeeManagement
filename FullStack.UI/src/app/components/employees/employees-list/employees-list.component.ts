@@ -31,4 +31,15 @@ export class EmployeesListComponent implements OnInit {
     });
   }
 
+  onSearchTextEntered(searchValue : string){
+    if(!searchValue){
+      this.ngOnInit();
+    }
+    this.employeesService.searchEmployee(searchValue).subscribe({
+      next : (response) => {
+        this.employees = response;
+      }
+    });
+  }
+
 }

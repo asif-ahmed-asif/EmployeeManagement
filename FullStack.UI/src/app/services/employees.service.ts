@@ -32,4 +32,8 @@ export class EmployeesService {
   deleteEmployee(id : string) : Observable<Employee>{
     return this.http.delete<Employee>(this.baseUrl + 'api/employee/'+ id);
   }
+
+  searchEmployee(key : string) : Observable<Employee[]>{
+    return this.http.get<Employee[]>(this.baseUrl + 'api/employee/search/'+ key);
+  }
 }

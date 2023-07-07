@@ -1,0 +1,14 @@
+<div class="container mt-2">
+  <div class="row pt-4">
+      <div class="mx-auto col-10 col-md-8 col-lg-6">
+          <div class="form-group">
+              <form class="d-flex">
+                  <input class="form-control me-sm-2" name="search" type="search" placeholder="Employee Name" [(ngModel)]="enterdSearchValue"
+                  (input)="onSearchTextChanged()">
+                  <span class="bg-secondary text-center text-white p-1" style="width:150px">
+                    <i class="bi bi-search"></i> Search</span>
+              </form>
+          </div>
+      </div>
+  </div>
+</div>
