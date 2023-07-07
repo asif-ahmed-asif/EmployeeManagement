@@ -70,7 +70,11 @@ namespace FullStack.API.Controllers
         public async Task<ActionResult<IEnumerable<Employee>>> SearchEmployee([FromRoute] string key)
         {
             var employees = await _db.Employees.Where(e => e.Name.Contains(key)).ToListAsync();
-            return Ok(employees);
+            if (employees.Any())
+            {
+                return Ok(employees);
+            }
+            return NotFound();
         }
 
     }

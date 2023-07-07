@@ -38,6 +38,9 @@ export class EmployeesListComponent implements OnInit {
     this.employeesService.searchEmployee(searchValue).subscribe({
       next : (response) => {
         this.employees = response;
+      },
+      error : (err) =>{
+        this.employees = [];
       }
     });
   }
