@@ -66,6 +66,16 @@ namespace FullStack.API.Controllers
             await _db.SaveChangesAsync();
             return Ok(employee);
         }
+        [HttpGet("search/{key}")]
+        public async Task<ActionResult<IEnumerable<Employee>>> SearchEmployee([FromRoute] string key)
+        {
+            var employees = await _db.Employees.Where(e => e.Name.Contains(key)).ToListAsync();
+            if (employees.Any())
+            {
+                return Ok(employees);
+            }
+            return NotFound();
+        }
 
     }
 }
