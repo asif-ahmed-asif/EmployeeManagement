@@ -1,7 +1,6 @@
-﻿using FullStack.API.Data;
-using FullStack.API.Model;
+﻿using FullStack.API.Model;
+using FullStack.API.Services.EmployeeService;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace FullStack.API.Controllers
 {
@@ -9,30 +8,28 @@ namespace FullStack.API.Controllers
     [Route("api/[controller]")]
     public class EmployeeController : Controller
     {
-        private readonly DataContext _db;
+        private readonly IEmployeeService _employeeService;
 
-        public EmployeeController(DataContext db)
+        public EmployeeController(IEmployeeService employeeService)
         {
-            _db = db;
+            _employeeService = employeeService;
         }
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Employee>>> GetAll()
         {
-            return Ok(await _db.Employees.ToListAsync());
+            return Ok(await _employeeService.GetAll());
         }
         [HttpPost]
         public async Task<ActionResult<Employee>> AddEmployee([FromBody] Employee employee)
         {
-            employee.Id = Guid.NewGuid();
-            _db.Employees.Add(employee);
-           await _db.SaveChangesAsync();
-            return Ok(employee);
+            return Ok(await _employeeService.AddEmployee(employee));
         }
         [HttpGet("{id:Guid}")]
         public async Task<ActionResult<Employee>> GetEmployee([FromRoute] Guid id)
         {
-            var employee = await _db.Employees.FindAsync(id);
-            if (employee == null)
+            var employee = await _employeeService.GetEmployee(id);
+            if (employee is null)
             {
                 return NotFound();
             }
@@ -41,40 +38,32 @@ namespace FullStack.API.Controllers
         [HttpPut]
         public async Task<ActionResult<Employee>> EditEmployee([FromBody] Employee employee)
         {
-            var employeeDetails = await _db.Employees.FindAsync(employee.Id);
-            if (employeeDetails == null)
+            var employeeDetails = await _employeeService.EditEmployee(employee);
+            if (employeeDetails is null)
             {
                 return NotFound();
             }
-            employeeDetails.Name = employee.Name;
-            employeeDetails.Email = employee.Email;
-            employeeDetails.Phone = employee.Phone;
-            employeeDetails.Salary = employee.Salary;
-            employeeDetails.Department = employee.Department;
-            await _db.SaveChangesAsync();
             return Ok(employeeDetails);
         }
         [HttpDelete("{id:Guid}")]
         public async Task<ActionResult<Employee>> DeleteEmployee([FromRoute] Guid id)
         {
-            var employee = await _db.Employees.FindAsync(id);
-            if (employee == null)
+            var employee = await _employeeService.DeleteEmployee(id);
+            if (employee is null)
             {
                 return NotFound();
             }
-            _db.Employees.Remove(employee);
-            await _db.SaveChangesAsync();
             return Ok(employee);
         }
         [HttpGet("search/{key}")]
         public async Task<ActionResult<IEnumerable<Employee>>> SearchEmployee([FromRoute] string key)
         {
-            var employees = await _db.Employees.Where(e => e.Name.Contains(key)).ToListAsync();
-            if (employees.Any())
+            var employees = await _employeeService.SearchEmployee(key);
+            if (employees is null)
             {
-                return Ok(employees);
+               return NotFound();
             }
-            return NotFound();
+             return Ok(employees);
         }
 
     }

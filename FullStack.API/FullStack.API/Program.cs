@@ -1,4 +1,5 @@
 using FullStack.API.Data;
+using FullStack.API.Services.EmployeeService;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,7 @@ builder.Services.AddDbContext<DataContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 }
 );
+builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 
 var app = builder.Build();
 
