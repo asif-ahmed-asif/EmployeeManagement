@@ -1,12 +1,28 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FullStack.API.Model;
+using FullStack.API.Services.DepartmentService;
+using Microsoft.AspNetCore.Mvc;
 
 namespace FullStack.API.Controllers
 {
+    [ApiController]
+    [Route("api/[controller]")]
     public class DepartmentController : Controller
     {
-        public IActionResult Index()
+        private readonly IDepartmentService _departmentService;
+
+        public DepartmentController(IDepartmentService departmentService)
         {
-            return View();
+            _departmentService = departmentService;
+        }
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Department>>> GetAll()
+        {
+            return Ok(await _departmentService.GetAll());
+        }
+        [HttpPost]
+        public async Task<ActionResult<Department>> AddDepartment(Department department)
+        {
+            return Ok(await _departmentService.AddDepartment(department));
         }
     }
 }
