@@ -8,10 +8,5 @@ namespace FullStack.API.Model
         public int Id { get; set; }
         public string Name { get; set; }
         public string Status { get; set; }
-
-
-
-        //Navigation Properties
-        public ICollection<Employee> Employees { get; set; }
     }
 }
