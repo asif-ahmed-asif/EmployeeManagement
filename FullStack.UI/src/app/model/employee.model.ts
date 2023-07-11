@@ -4,5 +4,6 @@ export interface Employee{
   email : string;
   phone : number;
   salary : number;
-  department : number;
+  departmentId : number;
+  department : any
 }

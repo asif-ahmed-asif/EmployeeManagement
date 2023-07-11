@@ -9,6 +9,7 @@
       "FullStack.API/1.0.0": {
         "dependencies": {
           "Microsoft.EntityFrameworkCore": "6.0.19",
+          "Microsoft.EntityFrameworkCore.Design": "6.0.19",
           "Microsoft.EntityFrameworkCore.SqlServer": "6.0.19",
           "Microsoft.EntityFrameworkCore.Tools": "6.0.19",
           "Swashbuckle.AspNetCore": "6.5.0"

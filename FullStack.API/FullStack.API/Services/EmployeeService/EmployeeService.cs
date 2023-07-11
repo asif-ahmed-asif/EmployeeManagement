@@ -44,14 +44,14 @@ namespace FullStack.API.Services.EmployeeService
             employeeDetails.Email = employee.Email;
             employeeDetails.Phone = employee.Phone;
             employeeDetails.Salary = employee.Salary;
-            employeeDetails.Department = employee.Department;
+            employeeDetails.DepartmentId = employee.DepartmentId;
             await _db.SaveChangesAsync();
             return employeeDetails;
         }
 
         public async Task<IEnumerable<Employee?>?> GetAll()
         {
-            return await _db.Employees.ToListAsync();
+            return await _db.Employees.Include(d => d.Department).ToListAsync();
         }
 
         public async Task<Employee?> GetEmployee(Guid id)

@@ -27,7 +27,7 @@
           <td>{{employee.email}}</td>
           <td>{{employee.phone}}</td>
           <td>{{employee.salary}}</td>
-          <td>{{employee.department}}</td>
+          <td>{{employee.department.name}}</td>
           <td>
             <div class="w-20 btn-group" role="group">
               <a [routerLink]="['/employees/edit',employee.id]" class="btn btn-primary mx-2">
