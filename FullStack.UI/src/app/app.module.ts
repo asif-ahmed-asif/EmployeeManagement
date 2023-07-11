@@ -9,6 +9,7 @@ import { AddEmployeeComponent } from './components/employees/add-employee/add-em
 import { FormsModule } from '@angular/forms';
 import { EditEmployeeComponent } from './components/employees/edit-employee/edit-employee.component';
 import { SearchComponent } from './components/search/search.component';
+import { DepartmentsListComponent } from './components/department/departments-list/departments-list.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { SearchComponent } from './components/search/search.component';
     EmployeesListComponent,
     AddEmployeeComponent,
     EditEmployeeComponent,
-    SearchComponent
+    SearchComponent,
+    DepartmentsListComponent
   ],
   imports: [
     BrowserModule,
