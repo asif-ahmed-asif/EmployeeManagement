@@ -27,4 +27,8 @@ export class DepartmentService {
   editDepartment(department : Department) : Observable<Department>{
     return this.http.put<Department>(this.baseUrl + 'api/department', department);
   }
+
+  changeDepartmentStatus(id : number) : Observable<Department>{
+    return this.http.delete<Department>(this.baseUrl + 'api/department/' + id);
+  }
 }

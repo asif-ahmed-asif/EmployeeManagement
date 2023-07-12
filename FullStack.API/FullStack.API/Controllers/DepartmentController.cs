@@ -44,5 +44,15 @@ namespace FullStack.API.Controllers
             }
             return Ok(departmentDetails);
         }
+        [HttpDelete("{id:int}")]
+        public async Task<ActionResult<Department>> ChangeStatus([FromRoute] int id)
+        {
+            var department = await _departmentService.ChangeStatus(id);
+            if (department is null)
+            {
+                return NotFound();
+            }
+            return Ok(department);
+        }
     }
 }

@@ -19,6 +19,25 @@ namespace FullStack.API.Services.DepartmentService
             return department;
         }
 
+        public async Task<Department?> ChangeStatus(int id)
+        {
+            var department = await _db.Departments.FindAsync(id);
+            if (department is null)
+            {
+                return null;
+            }
+            if (department.Status == "Active")
+            {
+                department.Status = "Inactive";
+            }
+            else
+            {
+                department.Status = "Active";
+            }
+            await _db.SaveChangesAsync();
+            return department;
+        }
+
         public async Task<Department?> EditDepartment(Department department)
         {
             var departmentDetails = await _db.Departments.FindAsync(department.Id);
@@ -45,6 +64,11 @@ namespace FullStack.API.Services.DepartmentService
                 return null;
             }
             return department;
+        }
+
+        public Task<IEnumerable<Department?>?> SearchDepartment()
+        {
+            throw new NotImplementedException();
         }
     }
 }

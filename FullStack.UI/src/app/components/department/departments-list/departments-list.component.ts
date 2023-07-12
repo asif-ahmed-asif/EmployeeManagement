@@ -20,4 +20,12 @@ export class DepartmentsListComponent implements OnInit {
     });
   }
 
+  changeDepartmentStatus(id : number) {
+    this.departmentService.changeDepartmentStatus(id).subscribe({
+      next : (response) => {
+        this.ngOnInit();
+      }
+    });
+  }
+
 }
