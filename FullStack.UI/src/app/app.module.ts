@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { EditEmployeeComponent } from './components/employees/edit-employee/edit-employee.component';
 import { SearchComponent } from './components/search/search.component';
 import { DepartmentsListComponent } from './components/department/departments-list/departments-list.component';
+import { AddDepartmentsComponent } from './components/department/add-departments/add-departments.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { DepartmentsListComponent } from './components/department/departments-li
     AddEmployeeComponent,
     EditEmployeeComponent,
     SearchComponent,
-    DepartmentsListComponent
+    DepartmentsListComponent,
+    AddDepartmentsComponent
   ],
   imports: [
     BrowserModule,

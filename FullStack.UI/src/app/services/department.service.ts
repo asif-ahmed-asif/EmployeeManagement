@@ -15,4 +15,8 @@ export class DepartmentService {
   getAllDepartments() : Observable<Department[]>{
     return this.http.get<Department[]>(this.baseUrl + 'api/department');
   }
+
+  addDepartment(department : Department) : Observable<Department>{
+    return this.http.post<Department>(this.baseUrl + 'api/department', department);
+  }
 }
