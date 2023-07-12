@@ -23,5 +23,15 @@ namespace FullStack.API.Services.DepartmentService
         {
             return await _db.Departments.ToListAsync();
         }
+
+        public async Task<Department?> GetDepartment(int id)
+        {
+            var department =await _db.Departments.FindAsync(id);
+            if (department == null)
+            {
+                return null;
+            }
+            return department;
+        }
     }
 }

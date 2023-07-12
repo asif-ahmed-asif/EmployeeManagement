@@ -14,6 +14,7 @@
           <th scope="col">Id</th>
           <th scope="col">Name</th>
           <th scope="col">Status</th>
+          <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
@@ -21,6 +22,19 @@
           <td>{{department.id}}</td>
           <td>{{department.name}}</td>
           <td>{{department.status}}</td>
+          <td>
+            <div class="w-20 btn-group" role="group">
+              <a [routerLink]="['/department/edit',department.id]" class="btn btn-primary mx-2">
+                <i class="bi bi-pencil-square"></i> Edit
+              </a>
+              <a class="btn btn-danger" *ngIf="department.status ==='Active'" >
+                <i class="bi bi-x-circle"></i> Inactive
+              </a>
+              <a class="btn btn-success" *ngIf="department.status ==='Inactive'" >
+                <i class="bi bi-check-circle"></i> Active
+              </a>
+            </div>
+          </td>
         </tr>
       </tbody>
     </table>

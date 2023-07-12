@@ -20,9 +20,19 @@ namespace FullStack.API.Controllers
             return Ok(await _departmentService.GetAll());
         }
         [HttpPost]
-        public async Task<ActionResult<Department>> AddDepartment(Department department)
+        public async Task<ActionResult<Department>> AddDepartment([FromBody] Department department)
         {
             return Ok(await _departmentService.AddDepartment(department));
+        }
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<Department>> GetDepartment([FromRoute] int id)
+        {
+            var department = await _departmentService.GetDepartment(id);
+            if (department is null) 
+            {
+                return NotFound();
+            }
+            return Ok(department);
         }
     }
 }

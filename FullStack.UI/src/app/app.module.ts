@@ -11,6 +11,7 @@ import { EditEmployeeComponent } from './components/employees/edit-employee/edit
 import { SearchComponent } from './components/search/search.component';
 import { DepartmentsListComponent } from './components/department/departments-list/departments-list.component';
 import { AddDepartmentsComponent } from './components/department/add-departments/add-departments.component';
+import { EditDepartmentsComponent } from './components/department/edit-departments/edit-departments.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { AddDepartmentsComponent } from './components/department/add-departments
     EditEmployeeComponent,
     SearchComponent,
     DepartmentsListComponent,
-    AddDepartmentsComponent
+    AddDepartmentsComponent,
+    EditDepartmentsComponent
   ],
   imports: [
     BrowserModule,
