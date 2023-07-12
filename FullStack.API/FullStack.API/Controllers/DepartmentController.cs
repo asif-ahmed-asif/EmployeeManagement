@@ -34,5 +34,15 @@ namespace FullStack.API.Controllers
             }
             return Ok(department);
         }
+        [HttpPut]
+        public async Task<ActionResult<Department>> EditDepartment([FromBody] Department department)
+        {
+            var departmentDetails = await _departmentService.EditDepartment(department);
+            if (departmentDetails is null)
+            {
+                return NotFound();
+            }
+            return Ok(departmentDetails);
+        }
     }
 }

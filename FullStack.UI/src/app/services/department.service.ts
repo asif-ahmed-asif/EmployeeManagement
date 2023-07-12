@@ -23,4 +23,8 @@ export class DepartmentService {
   getDepartment(id : string) : Observable<Department>{
     return this.http.get<Department>(this.baseUrl + 'api/department/' + id);
   }
+
+  editDepartment(department : Department) : Observable<Department>{
+    return this.http.put<Department>(this.baseUrl + 'api/department', department);
+  }
 }

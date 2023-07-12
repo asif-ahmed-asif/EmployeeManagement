@@ -34,7 +34,11 @@ export class EditDepartmentsComponent implements OnInit {
   }
 
   editDepartment(){
-
+    this.departmentService.editDepartment(this.departmentDetails).subscribe({
+      next : (response) => {
+        this.router.navigate(['department']);
+      }
+    });
   }
 
 }
