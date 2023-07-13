@@ -28,4 +28,19 @@ export class DepartmentsListComponent implements OnInit {
     });
   }
 
+  onSearchTextEntered(searchValue : string){
+    console.log(searchValue);
+    if(!searchValue){
+      this.ngOnInit();
+    }
+    this.departmentService.searchEmployee(searchValue).subscribe({
+      next : (response) => {
+        this.departments = response;
+      },
+      error : (err) =>{
+        this.departments = [];
+      }
+    });
+  }
+
 }

@@ -54,5 +54,15 @@ namespace FullStack.API.Controllers
             }
             return Ok(department);
         }
+        [HttpGet("search/{key}")]
+        public async Task<ActionResult<IEnumerable<Department>>> SearchDepartment([FromRoute] string key)
+        {
+            var department = await _departmentService.SearchDepartment(key);
+            if (department is null)
+            {
+                return NotFound();
+            }
+            return Ok(department);
+        }
     }
 }

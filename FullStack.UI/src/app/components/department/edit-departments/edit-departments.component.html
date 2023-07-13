@@ -1,14 +1,7 @@
-<div class="container mt-4">
-  <div class="row">
-      <div class="text-end">
-        <button routerLink="/department" class="btn btn-primary">Department List</button>
-      </div>
-  </div>
-</div>
 <div class="pt-3">
   <div class="row">
       <div class="mx-auto col-10 col-md-8 col-lg-6">
-          <h2>Add Department</h2>
+          <h2>Edit Department</h2>
           <hr />
           <form #form="ngForm" (ngSubmit)="editDepartment()">
             <input type="hidden" id="id" name="id"

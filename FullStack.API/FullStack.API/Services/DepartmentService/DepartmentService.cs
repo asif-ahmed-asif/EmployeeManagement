@@ -66,9 +66,14 @@ namespace FullStack.API.Services.DepartmentService
             return department;
         }
 
-        public Task<IEnumerable<Department?>?> SearchDepartment()
+        public async Task<IEnumerable<Department?>?> SearchDepartment(string key)
         {
-            throw new NotImplementedException();
+            var department = await _db.Departments.Where(d => d.Name.Contains(key)).ToListAsync();
+            if (department.Any())
+            {
+                return department;
+            }
+            return null;
         }
     }
 }

@@ -31,4 +31,8 @@ export class DepartmentService {
   changeDepartmentStatus(id : number) : Observable<Department>{
     return this.http.delete<Department>(this.baseUrl + 'api/department/' + id);
   }
+
+  searchEmployee(key : string) : Observable<Department[]>{
+    return this.http.get<Department[]>(this.baseUrl + 'api/department/search/'+ key);
+  }
 }
