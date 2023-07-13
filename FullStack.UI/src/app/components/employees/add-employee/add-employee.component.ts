@@ -2,6 +2,8 @@ import { Employee } from './../../../model/employee.model';
 import { EmployeesService } from 'src/app/services/employees.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Department } from 'src/app/model/department.model';
+import { DepartmentService } from 'src/app/services/department.service';
 
 @Component({
   selector: 'app-add-employee',
@@ -10,18 +12,23 @@ import { Router } from '@angular/router';
 })
 export class AddEmployeeComponent implements OnInit {
   addEmployeeRequest : Employee = {
-    id : '',
+    id : '00000000-0000-0000-0000-000000000000',
     name : '',
     email : '',
     phone : 0,
     salary : 0,
     departmentId : 0,
-    department : ''
+    department : null
   }
-  constructor(private employeeService : EmployeesService, private router : Router){}
+  departments : Department[] = [];
+  constructor(private employeeService : EmployeesService, private router : Router, private departmentService : DepartmentService){}
 
   ngOnInit(): void {
-
+    this.departmentService.getAllDepartments().subscribe({
+      next : (response) => {
+        this.departments = response;
+      }
+    });
   }
 
   addEmployee(){

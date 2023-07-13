@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Department } from 'src/app/model/department.model';
 import { Employee } from 'src/app/model/employee.model';
+import { DepartmentService } from 'src/app/services/department.service';
 import { EmployeesService } from 'src/app/services/employees.service';
 
 @Component({
@@ -18,8 +20,9 @@ export class EditEmployeeComponent implements OnInit {
     departmentId : 0,
     department : ''
   }
-
-  constructor(private route : ActivatedRoute, private employeeService : EmployeesService, private router : Router){}
+  departments : Department[] = [];
+  constructor(private route : ActivatedRoute, private employeeService : EmployeesService, private router : Router,
+      private departmentService : DepartmentService){}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe({
@@ -33,6 +36,12 @@ export class EditEmployeeComponent implements OnInit {
             }
           });
         }
+      }
+    });
+
+    this.departmentService.getAllDepartments().subscribe({
+      next : (response) => {
+        this.departments = response;
       }
     });
   }

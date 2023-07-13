@@ -33,8 +33,12 @@
             </div>
             <div class="mb-3">
               <label for="department" class="form-label">Department</label>
-              <input type="text" class="form-control" id="department" name="department"
+              <select type="text" class="form-control" id="department" name="department"
               [(ngModel)]="addEmployeeRequest.departmentId">
+              <ng-container *ngFor="let department of departments">
+              <option *ngIf="department.status === 'Active'" value="{{department.id}}">{{department.name}}</option>
+            </ng-container>
+              </select>
             </div>
               <button type="submit" class="btn btn-success" style="width: 200px;">Submit</button>
           </form>
