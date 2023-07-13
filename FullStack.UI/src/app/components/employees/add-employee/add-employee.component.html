@@ -37,7 +37,7 @@
               [(ngModel)]="addEmployeeRequest.departmentId">
               <ng-container *ngFor="let department of departments">
               <option *ngIf="department.status === 'Active'" value="{{department.id}}">{{department.name}}</option>
-            </ng-container>
+              </ng-container>
               </select>
             </div>
               <button type="submit" class="btn btn-success" style="width: 200px;">Submit</button>

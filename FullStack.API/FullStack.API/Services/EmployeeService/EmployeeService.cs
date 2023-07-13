@@ -66,7 +66,9 @@ namespace FullStack.API.Services.EmployeeService
 
         public async Task<IEnumerable<Employee?>?> SearchEmployee(string key)
         {
-            var employees = await _db.Employees.Where(e => e.Name.Contains(key)).ToListAsync();
+            var employees = await _db.Employees.Where(e => e.Name.Contains(key))
+                .Include(d => d.Department)
+                .ToListAsync();
             if (employees.Any())
             {
                 return employees;

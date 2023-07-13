@@ -1,6 +1,8 @@
 import { EmployeesService } from 'src/app/services/employees.service';
 import { Employee } from './../../../model/employee.model';
 import { Component, OnInit } from '@angular/core';
+import { Department } from 'src/app/model/department.model';
+import { DepartmentService } from 'src/app/services/department.service';
 
 @Component({
   selector: 'app-employees-list',
@@ -9,7 +11,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EmployeesListComponent implements OnInit {
   employees : Employee[] = [];
-  constructor(private employeesService : EmployeesService){}
+  dropdownValue : number = 0;
+  departments : Department[] = [];
+  constructor(private employeesService : EmployeesService, private departmentService : DepartmentService){}
   ngOnInit(): void {
     this.employeesService.getAllEmployees()
     .subscribe({
@@ -19,8 +23,13 @@ export class EmployeesListComponent implements OnInit {
       error : (response) => {
 
       }
-    })
+    });
 
+    this.departmentService.getAllDepartments().subscribe({
+      next : (response) => {
+        this.departments = response;
+      }
+    });
   }
 
   deleteEmployee(id : string){
