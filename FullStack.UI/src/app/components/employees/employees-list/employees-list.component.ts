@@ -3,6 +3,7 @@ import { Employee } from './../../../model/employee.model';
 import { Component, OnInit } from '@angular/core';
 import { Department } from 'src/app/model/department.model';
 import { DepartmentService } from 'src/app/services/department.service';
+import { NgConfirmService } from 'ng-confirm-box';
 
 @Component({
   selector: 'app-employees-list',
@@ -13,7 +14,7 @@ export class EmployeesListComponent implements OnInit {
   employees : Employee[] = [];
   dropdownValue : number = 0;
   departments : Department[] = [];
-  constructor(private employeesService : EmployeesService, private departmentService : DepartmentService){}
+  constructor(private employeesService : EmployeesService, private departmentService : DepartmentService, private confirmService: NgConfirmService){}
   ngOnInit(): void {
     this.employeesService.getAllEmployees()
     .subscribe({
@@ -33,11 +34,17 @@ export class EmployeesListComponent implements OnInit {
   }
 
   deleteEmployee(id : string){
-    this.employeesService.deleteEmployee(id).subscribe({
-      next : (response) => {
-        this.ngOnInit();
-      }
-    });
+    this.confirmService.showConfirm("Are you sure want to Delete?",
+     () => {
+      this.employeesService.deleteEmployee(id).subscribe({
+        next : (response) => {
+          this.ngOnInit();
+        }
+      });
+    },
+    () => {
+      //yor logic if No clicked
+    })
   }
 
   onSearchTextEntered(searchValue : string){

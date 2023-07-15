@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgConfirmService } from 'ng-confirm-box';
 import { Department } from 'src/app/model/department.model';
 import { DepartmentService } from 'src/app/services/department.service';
 
@@ -10,7 +11,7 @@ import { DepartmentService } from 'src/app/services/department.service';
 })
 export class DepartmentsListComponent implements OnInit {
   departments : Department[] = [];
-  constructor(private departmentService : DepartmentService){}
+  constructor(private departmentService : DepartmentService, private confirmService: NgConfirmService){}
 
   ngOnInit(): void {
     this.departmentService.getAllDepartments().subscribe({
@@ -21,15 +22,20 @@ export class DepartmentsListComponent implements OnInit {
   }
 
   changeDepartmentStatus(id : number) {
-    this.departmentService.changeDepartmentStatus(id).subscribe({
-      next : (response) => {
-        this.ngOnInit();
-      }
-    });
+    this.confirmService.showConfirm("Are you sure want to change the Status?",
+     () => {
+      this.departmentService.changeDepartmentStatus(id).subscribe({
+        next : (response) => {
+          this.ngOnInit();
+        }
+      });
+    },
+    () => {
+      //yor logic if No clicked
+    })
   }
 
   onSearchTextEntered(searchValue : string){
-    console.log(searchValue);
     if(!searchValue){
       this.ngOnInit();
     }
