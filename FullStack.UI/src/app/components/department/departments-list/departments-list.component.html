@@ -29,10 +29,10 @@
                 <i class="bi bi-pencil-square"></i> Edit
               </a>
               <a class="btn btn-danger" *ngIf="department.status ==='Active'" (click)="changeDepartmentStatus(department.id)">
-                <i class="bi bi-x-circle"></i> Inactive
+                <i class="bi bi-x-circle"></i> Deactivate
               </a>
               <a class="btn btn-success" *ngIf="department.status ==='Inactive'" (click)="changeDepartmentStatus(department.id)">
-                <i class="bi bi-check-circle"></i> Active
+                <i class="bi bi-check-circle"></i> Activate
               </a>
             </div>
           </td>

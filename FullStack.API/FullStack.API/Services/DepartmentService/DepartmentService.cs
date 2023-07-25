@@ -12,11 +12,16 @@ namespace FullStack.API.Services.DepartmentService
         {
             _db = db;
         }
-        public async Task<Department?> AddDepartment(Department department)
+        public async Task<bool?> AddDepartment(Department department)
         {
+            var exists = await _db.Departments.AnyAsync(x => x.Name == department.Name);
+            if (exists)
+            {
+                return false;
+            }
             _db.Departments.Add(department);
             await _db.SaveChangesAsync();
-            return department;
+            return true;
         }
 
         public async Task<Department?> ChangeStatus(int id)

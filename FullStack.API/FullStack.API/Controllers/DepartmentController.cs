@@ -20,9 +20,20 @@ namespace FullStack.API.Controllers
             return Ok(await _departmentService.GetAll());
         }
         [HttpPost]
-        public async Task<ActionResult<Department>> AddDepartment([FromBody] Department department)
+        public async Task<ActionResult<string>> AddDepartment([FromBody] Department department)
         {
-            return Ok(await _departmentService.AddDepartment(department));
+            var result = await _departmentService.AddDepartment(department);
+            if (result is true)
+            {
+                return Ok(new
+                {
+                    Message = "Department created!"
+                });
+            }
+            return BadRequest(new
+            {
+                Message = "Name already exists!"
+            });
         }
         [HttpGet("{id:int}")]
         public async Task<ActionResult<Department>> GetDepartment([FromRoute] int id)
@@ -45,14 +56,20 @@ namespace FullStack.API.Controllers
             return Ok(departmentDetails);
         }
         [HttpDelete("{id:int}")]
-        public async Task<ActionResult<Department>> ChangeStatus([FromRoute] int id)
+        public async Task<ActionResult<string>> ChangeStatus([FromRoute] int id)
         {
             var department = await _departmentService.ChangeStatus(id);
             if (department is null)
             {
-                return NotFound();
+                return NotFound(new
+                {
+                    Message = "Something went wrong!"
+                });
             }
-            return Ok(department);
+            return Ok(new
+            {
+                Message = "Status changed!"
+            });
         }
         [HttpGet("search/{key}")]
         public async Task<ActionResult<IEnumerable<Department>>> SearchDepartment([FromRoute] string key)

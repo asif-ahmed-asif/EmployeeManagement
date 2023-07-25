@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgToastService } from 'ng-angular-popup';
 import { NgConfirmService } from 'ng-confirm-box';
 import { Department } from 'src/app/model/department.model';
 import { DepartmentService } from 'src/app/services/department.service';
@@ -11,7 +12,10 @@ import { DepartmentService } from 'src/app/services/department.service';
 })
 export class DepartmentsListComponent implements OnInit {
   departments : Department[] = [];
-  constructor(private departmentService : DepartmentService, private confirmService: NgConfirmService){}
+  constructor(
+    private departmentService : DepartmentService,
+    private confirmService: NgConfirmService,
+    private toast: NgToastService){}
 
   ngOnInit(): void {
     this.departmentService.getAllDepartments().subscribe({
@@ -26,7 +30,11 @@ export class DepartmentsListComponent implements OnInit {
      () => {
       this.departmentService.changeDepartmentStatus(id).subscribe({
         next : (response) => {
+          this.toast.success({detail:"SUCCESS",summary:response.message,duration:5000});
           this.ngOnInit();
+        },
+        error : (err) => {
+          this.toast.error({detail:"ERROR",summary:err.error.message,sticky:true});
         }
       });
     },

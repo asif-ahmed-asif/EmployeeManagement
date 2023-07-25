@@ -16,8 +16,8 @@ export class DepartmentService {
     return this.http.get<Department[]>(this.baseUrl + 'api/department');
   }
 
-  addDepartment(department : Department) : Observable<Department>{
-    return this.http.post<Department>(this.baseUrl + 'api/department', department);
+  addDepartment(department : Department) : Observable<any>{
+    return this.http.post<any>(this.baseUrl + 'api/department', department);
   }
 
   getDepartment(id : string) : Observable<Department>{
@@ -28,8 +28,8 @@ export class DepartmentService {
     return this.http.put<Department>(this.baseUrl + 'api/department', department);
   }
 
-  changeDepartmentStatus(id : number) : Observable<Department>{
-    return this.http.delete<Department>(this.baseUrl + 'api/department/' + id);
+  changeDepartmentStatus(id : number) : Observable<any>{
+    return this.http.delete<any>(this.baseUrl + 'api/department/' + id);
   }
 
   searchEmployee(key : string) : Observable<Department[]>{
