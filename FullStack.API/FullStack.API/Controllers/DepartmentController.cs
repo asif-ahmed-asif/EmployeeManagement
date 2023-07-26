@@ -48,12 +48,22 @@ namespace FullStack.API.Controllers
         [HttpPut]
         public async Task<ActionResult<Department>> EditDepartment([FromBody] Department department)
         {
-            var departmentDetails = await _departmentService.EditDepartment(department);
-            if (departmentDetails is null)
+            var result = await _departmentService.EditDepartment(department);
+            if (result is null)
             {
                 return NotFound();
             }
-            return Ok(departmentDetails);
+            if (result is true)
+            {
+                return Ok(new
+                {
+                    Message = "Department updated!"
+                });
+            }
+            return BadRequest(new
+            {
+                Message = "Name already exists!"
+            });
         }
         [HttpDelete("{id:int}")]
         public async Task<ActionResult<string>> ChangeStatus([FromRoute] int id)

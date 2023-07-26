@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgToastService } from 'ng-angular-popup';
 import { Department } from 'src/app/model/department.model';
 import { DepartmentService } from 'src/app/services/department.service';
 
@@ -9,13 +11,17 @@ import { DepartmentService } from 'src/app/services/department.service';
   styleUrls: ['./edit-departments.component.css']
 })
 export class EditDepartmentsComponent implements OnInit {
-  departmentDetails : Department = {
-    id : 0,
-    name : '',
-    status : ''
-  }
+  departmentDetails! : Department;
+  editDepartmentForm! : FormGroup;
+  backendError : string = "";
 
-  constructor(private departmentService : DepartmentService, private router : Router, private route : ActivatedRoute){}
+  constructor(
+    private departmentService : DepartmentService,
+    private router : Router,
+    private route : ActivatedRoute,
+    private toast: NgToastService,
+    private fb : FormBuilder
+    ){}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe({
@@ -24,8 +30,12 @@ export class EditDepartmentsComponent implements OnInit {
 
         if(id){
           this.departmentService.getDepartment(id).subscribe({
-            next : (details) => {
-              this.departmentDetails = details;
+            next : (department) => {
+              this.editDepartmentForm = this.fb.group({
+                id : department.id,
+                name : [department.name,Validators.required],
+                status : [department.status,Validators.required]
+              });
             }
           });
         }
@@ -34,11 +44,22 @@ export class EditDepartmentsComponent implements OnInit {
   }
 
   editDepartment(){
-    this.departmentService.editDepartment(this.departmentDetails).subscribe({
-      next : (response) => {
-        this.router.navigate(['department']);
-      }
-    });
+    if(this.editDepartmentForm.valid){
+      this.departmentDetails = this.editDepartmentForm.value;
+      this.departmentService.editDepartment(this.departmentDetails).subscribe({
+        next : (response) => {
+          this.toast.success({detail:"SUCCESS",summary:response.message,duration:5000});
+          this.router.navigate(['department']);
+        },
+        error : (err) => {
+          this.backendError = err.error.message;
+        }
+      });
+    }
+  }
+
+  get errors(){
+    return this.editDepartmentForm.controls;
   }
 
 }

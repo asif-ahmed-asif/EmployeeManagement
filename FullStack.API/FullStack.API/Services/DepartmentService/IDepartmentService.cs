@@ -7,7 +7,7 @@ namespace FullStack.API.Services.DepartmentService
         Task<IEnumerable<Department?>?> GetAll();
         Task<bool?> AddDepartment(Department department);
         Task<Department?> GetDepartment(int id);
-        Task<Department?> EditDepartment(Department department);
+        Task<bool?> EditDepartment(Department department);
         Task<Department?> ChangeStatus(int id);
         Task<IEnumerable<Department?>?> SearchDepartment(string key);
     }

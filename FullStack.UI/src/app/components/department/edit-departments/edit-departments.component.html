@@ -3,21 +3,24 @@
       <div class="mx-auto col-10 col-md-8 col-lg-6">
           <h2>Edit Department</h2>
           <hr />
-          <form #form="ngForm" (ngSubmit)="editDepartment()">
+          <form [formGroup]="editDepartmentForm" (ngSubmit)="editDepartment()">
             <div class="mb-3">
               <label for="name" class="form-label">Name</label>
-              <input type="text" class="form-control" id="name" name="name"
-              [(ngModel)]="departmentDetails.name">
+              <input type="text" class="form-control" formControlName="name" placeholder="Enter Department Name"
+              [class.is-invalid]="errors['name'].invalid && errors['name'].touched || backendError != ''">
+              <small class="text-danger fw-bold" *ngIf="errors['name'].invalid && errors['name'].touched">
+                * Name is required!</small>
+              <small class="text-danger fw-bold" *ngIf="backendError != '' && errors['name'].valid">
+                {{backendError}}</small>
             </div>
             <div class="mb-3">
               <label for="status" class="form-label">Status</label>
-              <select class="form-control" id="status" name="status"
-               [(ngModel)]="departmentDetails.status">
+              <select class="form-control" formControlName="status">
               <option value="Active">Active</option>
               <option value="Inactive">Inactive</option>
               </select>
             </div>
-              <button type="submit" class="btn btn-success me-2" style="width: 200px;">Submit</button>
+              <button type="submit" [disabled]="editDepartmentForm.invalid" class="btn btn-success me-2" style="width: 200px;">Submit</button>
               <button routerLink="/department" class="btn btn-secondary" style="width: 150px;">Back</button>
           </form>
       </div>

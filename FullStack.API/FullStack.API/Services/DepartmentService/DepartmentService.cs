@@ -43,8 +43,13 @@ namespace FullStack.API.Services.DepartmentService
             return department;
         }
 
-        public async Task<Department?> EditDepartment(Department department)
+        public async Task<bool?> EditDepartment(Department department)
         {
+            var exists = await _db.Departments.FirstOrDefaultAsync(x => x.Name == department.Name);
+            if (exists != null && exists.Id != department.Id)
+            {
+                return false;
+            }
             var departmentDetails = await _db.Departments.FindAsync(department.Id);
             if (departmentDetails is null) 
             {
@@ -53,7 +58,7 @@ namespace FullStack.API.Services.DepartmentService
             departmentDetails.Name = department.Name;
             departmentDetails.Status = department.Status;
             await _db.SaveChangesAsync();
-            return departmentDetails;
+            return true;
         }
 
         public async Task<IEnumerable<Department?>?> GetAll()
