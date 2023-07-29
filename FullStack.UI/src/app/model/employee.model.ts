@@ -2,7 +2,7 @@ export interface Employee{
   id : string;
   name : string;
   email : string;
-  phone : number;
+  phone : string;
   salary : number;
   departmentId : number;
   department : any

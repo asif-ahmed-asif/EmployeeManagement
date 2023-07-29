@@ -34,7 +34,7 @@ export class DepartmentsListComponent implements OnInit {
           this.ngOnInit();
         },
         error : (err) => {
-          this.toast.error({detail:"ERROR",summary:err.error.message,sticky:true});
+          this.toast.error({detail:"ERROR",summary:err.error.message,duration:5000});
         }
       });
     },

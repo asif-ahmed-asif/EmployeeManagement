@@ -15,7 +15,7 @@ export class EditEmployeeComponent implements OnInit {
     id : '',
     name : '',
     email : '',
-    phone : 0,
+    phone : '',
     salary : 0,
     departmentId : 0,
     department : ''

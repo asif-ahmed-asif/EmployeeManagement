@@ -13,12 +13,17 @@ namespace FullStack.API.Services.EmployeeService
             _db = db;
         }
 
-        public async Task<Employee?> AddEmployee(Employee employee)
+        public async Task<bool?> AddEmployee(Employee employee)
         {
+            var exists = await _db.Employees.AnyAsync(x => x.Name == employee.Name);
+            if (exists)
+            {
+                return false;
+            }
             employee.Id = Guid.NewGuid();
             _db.Employees.Add(employee);
             await _db.SaveChangesAsync();
-            return employee;
+            return true;
         }
 
         public async Task<Employee?> DeleteEmployee(Guid id)
@@ -33,8 +38,13 @@ namespace FullStack.API.Services.EmployeeService
             return employee;
         }
 
-        public async Task<Employee?> EditEmployee(Employee employee)
+        public async Task<bool?> EditEmployee(Employee employee)
         {
+            var exists = await _db.Employees.FirstOrDefaultAsync(x => x.Name == employee.Name);
+            if (exists != null && exists.Id != employee.Id)
+            {
+                return false;
+            }
             var employeeDetails = await _db.Employees.FindAsync(employee.Id);
             if (employeeDetails is null)
             {
@@ -46,7 +56,7 @@ namespace FullStack.API.Services.EmployeeService
             employeeDetails.Salary = employee.Salary;
             employeeDetails.DepartmentId = employee.DepartmentId;
             await _db.SaveChangesAsync();
-            return employeeDetails;
+            return true;
         }
 
         public async Task<IEnumerable<Employee?>?> GetAll()

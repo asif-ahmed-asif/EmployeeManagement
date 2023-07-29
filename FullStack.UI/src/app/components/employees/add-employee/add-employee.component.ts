@@ -15,7 +15,7 @@ export class AddEmployeeComponent implements OnInit {
     id : '00000000-0000-0000-0000-000000000000',
     name : '',
     email : '',
-    phone : 0,
+    phone : '',
     salary : 0,
     departmentId : 0,
     department : null

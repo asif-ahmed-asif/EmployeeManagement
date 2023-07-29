@@ -23,7 +23,18 @@ namespace FullStack.API.Controllers
         [HttpPost]
         public async Task<ActionResult<Employee>> AddEmployee([FromBody] Employee employee)
         {
-            return Ok(await _employeeService.AddEmployee(employee));
+            var result = await _employeeService.AddEmployee(employee);
+            if (result is true)
+            {
+                return Ok(new
+                {
+                    Message = "Department created!"
+                });
+            }
+            return BadRequest(new
+            {
+                Message = "Name already exists!"
+            });
         }
         [HttpGet("{id:Guid}")]
         public async Task<ActionResult<Employee>> GetEmployee([FromRoute] Guid id)
@@ -38,12 +49,22 @@ namespace FullStack.API.Controllers
         [HttpPut]
         public async Task<ActionResult<Employee>> EditEmployee([FromBody] Employee employee)
         {
-            var employeeDetails = await _employeeService.EditEmployee(employee);
-            if (employeeDetails is null)
+            var result = await _employeeService.EditEmployee(employee);
+            if (result is null)
             {
                 return NotFound();
             }
-            return Ok(employeeDetails);
+            if (result is true)
+            {
+                return Ok(new
+                {
+                    Message = "Department created!"
+                });
+            }
+            return BadRequest(new
+            {
+                Message = "Name already exists!"
+            });
         }
         [HttpDelete("{id:Guid}")]
         public async Task<ActionResult<Employee>> DeleteEmployee([FromRoute] Guid id)
@@ -51,9 +72,15 @@ namespace FullStack.API.Controllers
             var employee = await _employeeService.DeleteEmployee(id);
             if (employee is null)
             {
-                return NotFound();
+                return NotFound(new
+                {
+                    Message = "Something went wrong!"
+                });
             }
-            return Ok(employee);
+            return Ok(new
+            {
+                Message = "Employee Deleted!"
+            });
         }
         [HttpGet("search/{key}")]
         public async Task<ActionResult<IEnumerable<Employee>>> SearchEmployee([FromRoute] string key)
