@@ -13,10 +13,12 @@ namespace FullStack.API.Model
         [EmailAddress]
         public string Email { get; set; }
         [Required]
-        [MaxLength(11, ErrorMessage = "Phone number must be less than 11 digits!")]
+        [MaxLength(11, ErrorMessage = "Phone number must not exceed 11 digits!")]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "Only numbers are allowed!")]
         public string Phone { get; set; }
         [Required]
-        public long Salary { get; set; }
+        [RegularExpression("^[0-9]*\\.?[0-9]+$", ErrorMessage = "Only positive numbers are allowed!")]
+        public string Salary { get; set; }
         [Required]
         public int DepartmentId { get; set; }
 

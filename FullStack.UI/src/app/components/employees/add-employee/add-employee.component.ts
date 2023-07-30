@@ -4,6 +4,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Department } from 'src/app/model/department.model';
 import { DepartmentService } from 'src/app/services/department.service';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-add-employee',
@@ -11,17 +13,16 @@ import { DepartmentService } from 'src/app/services/department.service';
   styleUrls: ['./add-employee.component.css']
 })
 export class AddEmployeeComponent implements OnInit {
-  addEmployeeRequest : Employee = {
-    id : '00000000-0000-0000-0000-000000000000',
-    name : '',
-    email : '',
-    phone : '',
-    salary : 0,
-    departmentId : 0,
-    department : null
-  }
+  addEmployeeRequest! : Employee;
   departments : Department[] = [];
-  constructor(private employeeService : EmployeesService, private router : Router, private departmentService : DepartmentService){}
+  employeeForm! : FormGroup;
+  backendError : string = "";
+  constructor(
+    private employeeService : EmployeesService,
+    private router : Router,
+    private departmentService : DepartmentService,
+    private fb : FormBuilder,
+    private toast: NgToastService){}
 
   ngOnInit(): void {
     this.departmentService.getAllDepartments().subscribe({
@@ -29,15 +30,47 @@ export class AddEmployeeComponent implements OnInit {
         this.departments = response;
       }
     });
-  }
-
-  addEmployee(){
-    this.employeeService.addEmployee(this.addEmployeeRequest).subscribe({
-      next : (response) => {
-        //this.router.navigateByUrl("employees");
-        this.router.navigate(['employees']);
-      }
+    this.employeeForm = this.fb.group({
+      id : '00000000-0000-0000-0000-000000000000',
+      name : ['',Validators.required],
+      email : ['',[Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
+      phone : ['',[Validators.required,Validators.maxLength(11),Validators.pattern("^[0-9]*$")]],
+      salary : ['',[Validators.required,Validators.pattern("^[0-9]*\.?[0-9]+$")]],
+      departmentId : ['',Validators.required],
+      department : null
     });
   }
 
+  addEmployee(){
+    if(this.employeeForm.valid){
+      this.addEmployeeRequest = this.employeeForm.value;
+      this.employeeService.addEmployee(this.addEmployeeRequest).subscribe({
+        next : (response) => {
+          this.toast.success({detail:"SUCCESS",summary:response.message,duration:5000});
+          //this.router.navigateByUrl("employees");
+          this.router.navigate(['employees']);
+        },
+        error : (err) => {
+          this.backendError = err.error.message;
+        }
+      });
+    }else{
+      this.validateAllFormFields(this.employeeForm);
+    }
+  }
+
+  get validation(){
+    return this.employeeForm.controls;
+  }
+
+  private validateAllFormFields(formgroup : FormGroup){
+    Object.keys(formgroup.controls).forEach(field => {
+      const control = formgroup.get(field);
+      if(control instanceof FormControl){
+        control.markAsTouched({ onlySelf : true });
+      }else if (control instanceof FormGroup) {
+        this.validateAllFormFields(control);
+      }
+    });
+  }
 }

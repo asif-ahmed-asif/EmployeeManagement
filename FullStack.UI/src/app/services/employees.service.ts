@@ -16,20 +16,20 @@ export class EmployeesService {
     return this.http.get<Employee[]>(this.baseUrl + 'api/employee');
   }
 
-  addEmployee(addEmployeeRequest : Employee) : Observable<Employee>{
-    return this.http.post<Employee>(this.baseUrl + 'api/employee', addEmployeeRequest);
+  addEmployee(addEmployeeRequest : Employee) : Observable<any>{
+    return this.http.post<any>(this.baseUrl + 'api/employee', addEmployeeRequest);
   }
 
   getEmployee(id : string) : Observable<Employee>{
     return this.http.get<Employee>(this.baseUrl + 'api/employee/'+ id);
   }
 
-  editEmployee(employeeDetails : Employee) : Observable<Employee>{
-    return this.http.put<Employee>(this.baseUrl + 'api/employee', employeeDetails);
+  editEmployee(employeeDetails : Employee) : Observable<any>{
+    return this.http.put<any>(this.baseUrl + 'api/employee', employeeDetails);
   }
 
-  deleteEmployee(id : string) : Observable<Employee>{
-    return this.http.delete<Employee>(this.baseUrl + 'api/employee/'+ id);
+  deleteEmployee(id : string) : Observable<any>{
+    return this.http.delete<any>(this.baseUrl + 'api/employee/'+ id);
   }
 
   searchEmployee(key : string) : Observable<Employee[]>{

@@ -15,10 +15,12 @@
               <label for="name" class="form-label">Name</label>
               <input type="text" class="form-control" formControlName="name" placeholder="Enter Department Name"
               [class.is-invalid]="errors['name'].invalid && errors['name'].touched || backendError != ''">
-              <small class="text-danger fw-bold" *ngIf="errors['name'].invalid && errors['name'].touched">
-                * Name is required!</small>
-              <small class="text-danger fw-bold" *ngIf="backendError != '' && errors['name'].valid">
-                {{backendError}}</small>
+              <div>
+                <small class="text-danger fw-bold" *ngIf="errors['name'].invalid && errors['name'].touched">
+                  * Name is required!</small>
+                <small class="text-danger fw-bold" *ngIf="backendError != '' && errors['name'].valid">
+                  {{backendError}}</small>
+              </div>
             </div>
             <div class="mb-3">
               <label for="status" class="form-label">Status</label>
