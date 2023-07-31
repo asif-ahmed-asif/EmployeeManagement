@@ -76,7 +76,7 @@ namespace FullStack.API.Controllers
             {
                 return NotFound(new
                 {
-                    Message = "Something went wrong!"
+                    Message = "Department Id invalid!"
                 });
             }
             return Ok(new
