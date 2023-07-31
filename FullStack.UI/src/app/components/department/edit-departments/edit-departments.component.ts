@@ -36,6 +36,9 @@ export class EditDepartmentsComponent implements OnInit {
                 name : [department.name,Validators.required],
                 status : [department.status,Validators.required]
               });
+            },
+            error : (err) => {
+              alert(err.error.message);
             }
           });
         }

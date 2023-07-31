@@ -41,7 +41,10 @@ namespace FullStack.API.Controllers
             var department = await _departmentService.GetDepartment(id);
             if (department is null) 
             {
-                return NotFound();
+                return NotFound(new
+                {
+                    Message = "Department Id invalid!"
+                });
             }
             return Ok(department);
         }

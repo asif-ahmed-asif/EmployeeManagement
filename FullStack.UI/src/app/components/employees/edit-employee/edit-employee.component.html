@@ -3,34 +3,61 @@
       <div class="mx-auto col-10 col-md-8 col-lg-6">
           <h2>Edit Employee</h2>
           <hr />
-          <form #form="ngForm" (ngSubmit)="editEmployee()">
+          <form [formGroup]="editEmployeeForm" (ngSubmit)="editEmployee()">
             <div class="mb-3">
               <label for="name" class="form-label">Name</label>
-              <input type="text" class="form-control" id="name" name="name"
-              [(ngModel)]="employeeDetails.name">
+              <input type="text" class="form-control" formControlName="name" placeholder="Enter Department Name"
+              [class.is-invalid]="validation['name'].invalid && validation['name'].touched || backendError != ''">
+              <div>
+                <small class="text-danger fw-bold" *ngIf="validation['name'].invalid && validation['name'].touched">
+                  * Name is required!</small>
+                <small class="text-danger fw-bold" *ngIf="backendError != '' && validation['name'].valid">
+                  {{backendError}}</small>
+              </div>
             </div>
             <div class="mb-3">
               <label for="email" class="form-label">Email</label>
-              <input type="email" class="form-control" id="email" name="email"
-              [(ngModel)]="employeeDetails.email">
+              <input type="email" class="form-control" formControlName="email" placeholder="Enter Email Address"
+              [class.is-invalid]="validation['email'].invalid && validation['email'].touched">
+              <div *ngIf="validation['email'].invalid && validation['email'].touched">
+                <small class="text-danger fw-bold" *ngIf="validation['email'].errors && validation['email'].errors['required']">
+                  * Email is required!</small>
+                <small class="text-danger fw-bold" *ngIf="validation['email'].errors && validation['email'].errors['pattern']">
+                  Invalid Email Address</small>
+              </div>
             </div>
             <div class="mb-3">
               <label for="phone" class="form-label">Phone</label>
-              <input type="number" class="form-control" id="phone" name="phone"
-              [(ngModel)]="employeeDetails.phone">
+              <input type="text" class="form-control" formControlName="phone" placeholder="Enter Phone Number"
+              [class.is-invalid]="validation['phone'].invalid && validation['phone'].touched">
+              <div *ngIf="validation['phone'].invalid && validation['phone'].touched">
+                <small class="text-danger fw-bold" *ngIf="validation['phone'].errors && validation['phone'].errors['required']">
+                  * Phone is required!</small>
+                <small class="text-danger fw-bold" *ngIf="validation['phone'].errors && validation['phone'].errors['pattern']">
+                    Only numbers are allowed!</small>
+                <small class="text-danger fw-bold"
+                  *ngIf="validation['phone'].errors && !validation['phone'].errors['pattern'] && validation['phone'].errors['maxlength']">
+                  Phone number must not exceed 11 digits!</small>
+              </div>
             </div>
             <div class="mb-3">
               <label for="salary" class="form-label">Salary</label>
-              <input type="number" class="form-control" id="salary" name="salary"
-              [(ngModel)]="employeeDetails.salary">
+              <input type="text" class="form-control" formControlName="salary" placeholder="Enter Salary Amount"
+              [class.is-invalid]="validation['salary'].invalid && validation['salary'].touched">
+              <div *ngIf="validation['salary'].invalid && validation['salary'].touched">
+                <small class="text-danger fw-bold" *ngIf="validation['salary'].errors && validation['salary'].errors['required']">
+                  * Salary is required!</small>
+                <small class="text-danger fw-bold" *ngIf="validation['salary'].errors && validation['salary'].errors['pattern']">
+                  Only positive numbers are allowed!</small>
+              </div>
             </div>
             <div class="mb-3">
               <label for="department" class="form-label">Department</label>
-              <select type="text" class="form-control" id="department" name="department"
-              [(ngModel)]="employeeDetails.departmentId">
+              <select type="text" class="form-control" id="department" formControlName="departmentId"
+              [class.is-invalid]="validation['departmentId'].invalid && validation['departmentId'].touched">
               <ng-container *ngFor="let department of departments">
-                <option *ngIf="department.status === 'Active'" value="{{department.id}}">{{department.name}}</option>
-                </ng-container>
+              <option *ngIf="department.status === 'Active'" value="{{department.id}}">{{department.name}}</option>
+              </ng-container>
               </select>
             </div>
               <button type="submit" class="btn btn-success me-2" style="width: 150px;">Submit</button>

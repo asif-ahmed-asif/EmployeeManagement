@@ -42,7 +42,10 @@ namespace FullStack.API.Controllers
             var employee = await _employeeService.GetEmployee(id);
             if (employee is null)
             {
-                return NotFound();
+                return NotFound(new
+                {
+                    Message = "Employee Id invalid!"
+                });
             }
             return Ok(employee);
         }
@@ -58,7 +61,7 @@ namespace FullStack.API.Controllers
             {
                 return Ok(new
                 {
-                    Message = "Department created!"
+                    Message = "Department updated!"
                 });
             }
             return BadRequest(new
@@ -74,7 +77,7 @@ namespace FullStack.API.Controllers
             {
                 return NotFound(new
                 {
-                    Message = "Something went wrong!"
+                    Message = "Employee Id invalid!"
                 });
             }
             return Ok(new

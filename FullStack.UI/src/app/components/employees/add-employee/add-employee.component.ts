@@ -31,13 +31,11 @@ export class AddEmployeeComponent implements OnInit {
       }
     });
     this.employeeForm = this.fb.group({
-      id : '00000000-0000-0000-0000-000000000000',
       name : ['',Validators.required],
       email : ['',[Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
       phone : ['',[Validators.required,Validators.maxLength(11),Validators.pattern("^[0-9]*$")]],
       salary : ['',[Validators.required,Validators.pattern("^[0-9]*\.?[0-9]+$")]],
-      departmentId : ['',Validators.required],
-      department : null
+      departmentId : ['',Validators.required]
     });
   }
 
