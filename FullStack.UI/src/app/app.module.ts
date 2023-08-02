@@ -14,6 +14,11 @@ import { AddDepartmentsComponent } from './components/department/add-departments
 import { EditDepartmentsComponent } from './components/department/edit-departments/edit-departments.component';
 import { NgConfirmModule } from 'ng-confirm-box';
 import { NgToastModule } from 'ng-angular-popup';
+import { LoginComponent } from './components/auth/login/login.component';
+import { SignupComponent } from './components/auth/signup/signup.component';
+import { AdminComponent } from './components/dashboard/admin/admin.component';
+import { ManagerComponent } from './components/dashboard/manager/manager.component';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +29,12 @@ import { NgToastModule } from 'ng-angular-popup';
     SearchComponent,
     DepartmentsListComponent,
     AddDepartmentsComponent,
-    EditDepartmentsComponent
+    EditDepartmentsComponent,
+    LoginComponent,
+    SignupComponent,
+    AdminComponent,
+    ManagerComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

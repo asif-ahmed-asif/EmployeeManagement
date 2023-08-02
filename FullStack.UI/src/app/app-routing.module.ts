@@ -6,12 +6,16 @@ import { EditEmployeeComponent } from './components/employees/edit-employee/edit
 import { DepartmentsListComponent } from './components/department/departments-list/departments-list.component';
 import { AddDepartmentsComponent } from './components/department/add-departments/add-departments.component';
 import { EditDepartmentsComponent } from './components/department/edit-departments/edit-departments.component';
+import { LoginComponent } from './components/auth/login/login.component';
+import { SignupComponent } from './components/auth/signup/signup.component';
 
 const routes: Routes = [
+  //root
   {
     path : '',
     component : EmployeesListComponent
   },
+  //employees
   {
     path : 'employees',
     component : EmployeesListComponent
@@ -24,6 +28,7 @@ const routes: Routes = [
     path : 'employees/edit/:id',
     component : EditEmployeeComponent
   },
+  //department
   {
     path : 'department',
     component : DepartmentsListComponent
@@ -35,6 +40,15 @@ const routes: Routes = [
   {
     path : 'department/edit/:id',
     component : EditDepartmentsComponent
+  },
+  //auth
+  {
+    path : 'login',
+    component : LoginComponent
+  },
+  {
+    path : 'signup',
+    component : SignupComponent
   }
 ];
 
