@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
+import { validateAllFormFields } from 'src/app/helper/validations.helper';
 import { Department } from 'src/app/model/department.model';
 import { Employee } from 'src/app/model/employee.model';
 import { DepartmentService } from 'src/app/services/department.service';
@@ -71,23 +72,12 @@ export class EditEmployeeComponent implements OnInit {
         }
       });
     }else{
-      this.validateAllFormFields(this.editEmployeeForm);
+      validateAllFormFields(this.editEmployeeForm);
     }
   }
 
   get validation(){
     return this.editEmployeeForm.controls;
-  }
-
-  private validateAllFormFields(formgroup : FormGroup){
-    Object.keys(formgroup.controls).forEach(field => {
-      const control = formgroup.get(field);
-      if(control instanceof FormControl){
-        control.markAsTouched({ onlySelf : true });
-      }else if (control instanceof FormGroup) {
-        this.validateAllFormFields(control);
-      }
-    });
   }
 
 

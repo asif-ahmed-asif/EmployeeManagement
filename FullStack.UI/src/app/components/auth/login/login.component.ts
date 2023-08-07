@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
+import { validateAllFormFields } from 'src/app/helper/validations.helper';
 
 @Component({
   selector: 'app-login',
@@ -21,6 +22,15 @@ export class LoginComponent implements OnInit {
       email : ['',[Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
       password : ['',Validators.required]
     })
+  }
+
+  login(){
+    if(this.loginForm.valid){
+
+    }else{
+      validateAllFormFields(this.loginForm);
+    }
+
   }
 
 

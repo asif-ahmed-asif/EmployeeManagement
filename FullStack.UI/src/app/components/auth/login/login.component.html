@@ -3,7 +3,7 @@
       <div class="mx-auto col-10 col-md-8 col-lg-6">
           <h2>Login</h2>
           <hr />
-          <form [formGroup]="loginForm">
+          <form [formGroup]="loginForm" (ngSubmit)="login()">
             <div class="mb-3">
               <label for="email" class="form-label">Email</label>
               <input type="email" class="form-control" formControlName="email" placeholder="Enter Email Address"
