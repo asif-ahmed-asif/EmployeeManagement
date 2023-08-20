@@ -12,6 +12,9 @@ import { validateAllFormFields } from 'src/app/helper/validations.helper';
 export class LoginComponent implements OnInit {
   loginForm! : FormGroup;
   backendError : string = "";
+  type : string = "password";
+  icon : string = "fa-eye-slash";
+
   constructor(
     private router : Router,
     private fb : FormBuilder,
@@ -21,7 +24,7 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.fb.group({
       email : ['',[Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
       password : ['',Validators.required]
-    })
+    });
   }
 
   login(){
@@ -33,9 +36,18 @@ export class LoginComponent implements OnInit {
 
   }
 
-
   get validation(){
     return this.loginForm.controls;
+  }
+
+  showPassword(){
+    if(this.type === "password"){
+      this.type = "text";
+      this.icon = "fa-eye";
+    }else{
+      this.type = "password";
+      this.icon = "fa-eye-slash";
+    }
   }
 
 }

@@ -1,1 +1,64 @@
-<p>signup works!</p>
+<div class="pt-3">
+  <div class="row">
+      <div class="mx-auto col-10 col-md-8 col-lg-4">
+          <h2>Sign Up</h2>
+          <hr />
+          <form [formGroup]="signUpForm" (ngSubmit)="signUp()">
+            <div class="mb-3">
+              <label for="name" class="form-label">Name</label>
+              <input type="text" class="form-control" formControlName="name" placeholder="Enter Your Name"
+              [class.is-invalid]="validation['name'].invalid && validation['name'].touched">
+              <div *ngIf="validation['name'].touched">
+                <small class="text-danger fw-bold" *ngIf="validation['name'].errors && validation['name'].errors['required']">
+                  * Name is required!</small>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" formControlName="email" placeholder="Enter Email Address"
+              [class.is-invalid]="validation['email'].invalid && validation['email'].touched">
+              <div *ngIf="validation['email'].touched">
+                <small class="text-danger fw-bold" *ngIf="validation['email'].errors && validation['email'].errors['required']">
+                  * Email is required!</small>
+                <small class="text-danger fw-bold" *ngIf="validation['email'].errors && validation['email'].errors['pattern']">
+                  Invalid Email Address</small>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <div class="input-group">
+                <input [type]="type" class="form-control" formControlName="password"  placeholder="Enter Password"
+                [class.is-invalid]="validation['password'].invalid && validation['password'].touched" (input)="matchPassword()">
+                <button class="input-group-text fa {{icon}}" type="button" (click)="showPassword()"></button>
+              </div>
+              <div *ngIf="validation['password'].touched">
+                <small class="text-danger fw-bold" *ngIf="validation['password'].errors && validation['password'].errors['required']">
+                  * Password is required!</small>
+                <small class="text-danger fw-bold" *ngIf="validation['password'].errors && validation['password'].errors['pattern']">
+                  * Weak Password! <br>Your password must be at least 8 characters long,
+                   contain at least one number and have a mixture of uppercase and lowercase letters
+                   and one special character. e.g: #?!@$%^&*-_</small>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="cPassword" class="form-label">Confirm Password</label>
+              <div class="input-group">
+                <input [type]="cType" class="form-control" formControlName="cPassword"  placeholder="Re-Type Password"
+                [class.is-invalid]="validation['cPassword'].invalid && validation['cPassword'].touched || matchError != ''"
+                (input)="matchPassword()">
+                <button class="input-group-text fa {{cIcon}}" type="button" (click)="showConfirmPassword()"></button>
+              </div>
+              <div>
+                <small class="text-danger fw-bold" *ngIf="validation['cPassword'].touched && validation['cPassword'].invalid">
+                  * Confirm Password is required!</small>
+                <small class="text-danger fw-bold" *ngIf="matchError != ''">
+                  Passwords not matched!</small>
+              </div>
+            </div>
+              <button type="submit" class="btn btn-primary w-100">Sign up</button>
+              <p class="mt-3 text-center">Already have Account?
+                 <a class="text-decoration-none" routerLink="/login">Login</a></p>
+          </form>
+      </div>
+  </div>
+</div>
