@@ -33,7 +33,7 @@ namespace FullStack.API.Controllers
             }
             return BadRequest(new
             {
-                Message = "Name already exists!"
+                Message = "Email already exists!"
             });
         }
         [HttpGet("{id:Guid}")]
@@ -66,7 +66,7 @@ namespace FullStack.API.Controllers
             }
             return BadRequest(new
             {
-                Message = "Name already exists!"
+                Message = "Email already exists!"
             });
         }
         [HttpDelete("{id:Guid}")]

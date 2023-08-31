@@ -15,7 +15,7 @@ namespace FullStack.API.Services.EmployeeService
 
         public async Task<bool?> AddEmployee(Employee employee)
         {
-            var exists = await _db.Employees.AnyAsync(x => x.Name == employee.Name);
+            var exists = await _db.Employees.AnyAsync(x => x.Email == employee.Email);
             if (exists)
             {
                 return false;
@@ -40,7 +40,7 @@ namespace FullStack.API.Services.EmployeeService
 
         public async Task<bool?> EditEmployee(Employee employee)
         {
-            var exists = await _db.Employees.FirstOrDefaultAsync(x => x.Name == employee.Name);
+            var exists = await _db.Employees.FirstOrDefaultAsync(x => x.Email == employee.Email);
             if (exists != null && exists.Id != employee.Id)
             {
                 return false;
