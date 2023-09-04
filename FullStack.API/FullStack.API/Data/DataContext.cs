@@ -11,5 +11,6 @@ namespace FullStack.API.Data
 
        public DbSet<Employee> Employees { get; set; } 
        public DbSet<Department> Departments { get; set; } 
+       public DbSet<Registration> Registrations { get; set; } 
     }
 }

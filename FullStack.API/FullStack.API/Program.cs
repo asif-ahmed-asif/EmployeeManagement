@@ -1,4 +1,5 @@
 using FullStack.API.Data;
+using FullStack.API.Services.AuthService;
 using FullStack.API.Services.DepartmentService;
 using FullStack.API.Services.EmployeeService;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +19,7 @@ builder.Services.AddDbContext<DataContext>(options =>
 );
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IDepartmentService, DepartmentService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 var app = builder.Build();
 
