@@ -18,5 +18,9 @@ namespace FullStack.API.Model
         [NotMapped]
         [Compare("Password", ErrorMessage = "Passwords not matched!")]
         public string ConfirmPassword { get; set; }
+        [Required]
+        public string Token { get; set; }
+        [Required]
+        public string Role { get; set; }
     }
 }
