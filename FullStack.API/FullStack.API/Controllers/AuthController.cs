@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using FullStack.API.Model;
+using FullStack.API.Services.AuthService;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FullStack.API.Controllers
@@ -7,5 +9,29 @@ namespace FullStack.API.Controllers
     [ApiController]
     public class AuthController : Controller
     {
+        private readonly IAuthService _authService;
+
+        public AuthController(IAuthService authService)
+        {
+            _authService = authService;
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<string>> SignUp([FromBody] User user)
+        {
+            var output = await _authService.SignUp(user);
+            if(output is true) 
+            {
+                return Ok(new
+                {
+                    Message = "User Registered!"
+                });
+            }
+            return BadRequest(new
+            {
+                Message = "Email already registered!"
+            });
+
+        }
     }
 }

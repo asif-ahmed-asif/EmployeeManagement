@@ -23,6 +23,8 @@
                 <small class="text-danger fw-bold" *ngIf="validation['email'].errors && validation['email'].errors['pattern']">
                   Invalid Email Address</small>
               </div>
+              <small class="text-danger fw-bold" *ngIf="backendError != '' && validation['email'].valid">
+                {{backendError}}</small>
             </div>
             <div class="mb-3">
               <label for="password" class="form-label">Password</label>
@@ -41,15 +43,15 @@
               </div>
             </div>
             <div class="mb-3">
-              <label for="cPassword" class="form-label">Confirm Password</label>
+              <label for="confirmPassword" class="form-label">Confirm Password</label>
               <div class="input-group">
-                <input [type]="cType" class="form-control" formControlName="cPassword"  placeholder="Re-Type Password"
-                [class.is-invalid]="validation['cPassword'].invalid && validation['cPassword'].touched || matchError != ''"
+                <input [type]="cType" class="form-control" formControlName="confirmPassword"  placeholder="Re-Type Password"
+                [class.is-invalid]="validation['confirmPassword'].invalid && validation['confirmPassword'].touched || matchError != ''"
                 (input)="matchPassword()">
                 <button class="input-group-text fa {{cIcon}}" type="button" (click)="showConfirmPassword()"></button>
               </div>
               <div>
-                <small class="text-danger fw-bold" *ngIf="validation['cPassword'].touched && validation['cPassword'].invalid">
+                <small class="text-danger fw-bold" *ngIf="validation['confirmPassword'].touched && validation['confirmPassword'].invalid">
                   * Confirm Password is required!</small>
                 <small class="text-danger fw-bold" *ngIf="matchError != ''">
                   Passwords not matched!</small>
