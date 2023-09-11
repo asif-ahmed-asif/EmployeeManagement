@@ -33,5 +33,29 @@ namespace FullStack.API.Controllers
             });
 
         }
+        
+        [HttpPost("login")]
+        public async Task<ActionResult<string>> Login([FromBody] Login login)
+        {
+            var output = await _authService.Login(login);
+            if (output is null)
+            {
+                return NotFound(new
+                {
+                    Message = "Email not Registered!"
+                });
+            }
+            if (output == "incorrect")
+            {
+                return BadRequest(new
+                {
+                    Message = "Incorrect Password!"
+                });
+            }
+            return Ok(new
+            {
+                Message = "User Logged In!"
+            });
+        }
     }
 }

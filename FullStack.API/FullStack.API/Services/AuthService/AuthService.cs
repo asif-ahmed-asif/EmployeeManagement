@@ -1,4 +1,5 @@
 ﻿using FullStack.API.Data;
+using FullStack.API.Helpers;
 using FullStack.API.Model;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,9 +14,18 @@ namespace FullStack.API.Services.AuthService
             _db = db;
         }
 
-        public async Task<string> Login(Login login)
+        public async Task<string?> Login(Login login)
         {
-            throw new NotImplementedException();
+            var user = await _db.Users.FirstOrDefaultAsync(u => u.Email == login.Email);
+            if (user == null)
+            {
+                return null;
+            }
+            if(!PasswordHasher.VerifyPassword(login.Password, user.Password)) 
+            {
+                return "incorrect";
+            }
+            return "correct";
         }
 
         public async Task<bool?> SignUp(User user)
@@ -29,6 +39,7 @@ namespace FullStack.API.Services.AuthService
             user.Token = "";
             user.Role = "";
             user.Status = "";
+            user.Password = PasswordHasher.HashPassword(user.Password);
             _db.Users.Add(user);
             await _db.SaveChangesAsync();
             return true;
