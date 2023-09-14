@@ -41,11 +41,10 @@ export class SignupComponent implements OnInit {
   signUp(){
     if(this.signUpForm.valid && this.matchError == ""){
       this.addUser = this.signUpForm.value;
-      console.log(this.addUser);
       this.authService.addUser(this.addUser).subscribe({
         next : (response) => {
           this.toast.success({detail:"SUCCESS",summary:response.message,duration:5000});
-          //this.router.navigateByUrl("employees");
+          this.router.navigateByUrl("login");
         },
         error : (err) => {
           this.backendError = err.error.message;

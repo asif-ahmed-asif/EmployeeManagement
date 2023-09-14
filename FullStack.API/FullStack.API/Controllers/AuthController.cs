@@ -57,5 +57,11 @@ namespace FullStack.API.Controllers
                 Message = "User Logged In!"
             });
         }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<User>>> GetAll()
+        {
+            return Ok(await _authService.GetUsers());
+        }
     }
 }

@@ -8,6 +8,7 @@ import { AddDepartmentsComponent } from './components/department/add-departments
 import { EditDepartmentsComponent } from './components/department/edit-departments/edit-departments.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { SignupComponent } from './components/auth/signup/signup.component';
+import { AdminComponent } from './components/dashboard/admin/admin.component';
 
 const routes: Routes = [
   //root
@@ -49,6 +50,10 @@ const routes: Routes = [
   {
     path : 'signup',
     component : SignupComponent
+  },
+  {
+    path : 'adminDashboard',
+    component : AdminComponent
   }
 ];
 

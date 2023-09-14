@@ -14,6 +14,11 @@ namespace FullStack.API.Services.AuthService
             _db = db;
         }
 
+        public async Task<IEnumerable<User>> GetUsers()
+        {
+            return await _db.Users.ToListAsync();
+        }
+
         public async Task<string?> Login(Login login)
         {
             var user = await _db.Users.FirstOrDefaultAsync(u => u.Email == login.Email);

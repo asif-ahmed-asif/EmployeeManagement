@@ -6,5 +6,6 @@ namespace FullStack.API.Services.AuthService
     {
         Task<bool?> SignUp(User user);
         Task<string?> Login(Login login);
+        Task<IEnumerable<User>> GetUsers();
     }
 }
