@@ -85,3 +85,4 @@ D:\.NET Core 6 Projects\EmployeeManagement\FullStack.API\FullStack.API\bin\Debug
 D:\.NET Core 6 Projects\EmployeeManagement\FullStack.API\FullStack.API\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 D:\.NET Core 6 Projects\EmployeeManagement\FullStack.API\FullStack.API\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
 D:\.NET Core 6 Projects\EmployeeManagement\FullStack.API\FullStack.API\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+D:\.NET Core 6 Projects\EmployeeManagement\FullStack.API\FullStack.API\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

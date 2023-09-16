@@ -38,22 +38,23 @@ namespace FullStack.API.Controllers
         public async Task<ActionResult<string>> Login([FromBody] Login login)
         {
             var output = await _authService.Login(login);
-            if (output is null)
+            if (output.result is null)
             {
                 return NotFound(new
                 {
                     Message = "Email not Registered!"
                 });
             }
-            if (output == "incorrect")
+            if (output.result == "incorrect")
             {
                 return BadRequest(new
                 {
                     Message = "Incorrect Password!"
                 });
-            }
+            }            
             return Ok(new
             {
+                Token = output.user?.Token,
                 Message = "User Logged In!"
             });
         }

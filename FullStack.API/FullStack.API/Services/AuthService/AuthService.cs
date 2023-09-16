@@ -19,18 +19,20 @@ namespace FullStack.API.Services.AuthService
             return await _db.Users.ToListAsync();
         }
 
-        public async Task<string?> Login(Login login)
+        public async Task<(User? user, string? result)> Login(Login login)
         {
             var user = await _db.Users.FirstOrDefaultAsync(u => u.Email == login.Email);
             if (user == null)
             {
-                return null;
+                return (null, null);
             }
             if(!PasswordHasher.VerifyPassword(login.Password, user.Password)) 
             {
-                return "incorrect";
+                return (user, "incorrect");
             }
-            return "correct";
+            var token = JWTToken.CreateJwt(user);
+            user.Token = token;
+            return (user, "correct");
         }
 
         public async Task<bool?> SignUp(User user)
