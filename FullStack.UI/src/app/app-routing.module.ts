@@ -9,6 +9,7 @@ import { EditDepartmentsComponent } from './components/department/edit-departmen
 import { LoginComponent } from './components/auth/login/login.component';
 import { SignupComponent } from './components/auth/signup/signup.component';
 import { AdminComponent } from './components/dashboard/admin/admin.component';
+import { authGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   //root
@@ -53,7 +54,8 @@ const routes: Routes = [
   },
   {
     path : 'adminDashboard',
-    component : AdminComponent
+    component : AdminComponent,
+    canActivate : [authGuard]
   }
 ];
 

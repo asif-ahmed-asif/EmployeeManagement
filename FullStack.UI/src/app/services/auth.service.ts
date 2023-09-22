@@ -21,4 +21,17 @@ export class AuthService {
     return this.http.post<any>(this.baseUrl + 'api/auth/login', user);
   }
 
+  storeToken(token : string){
+    localStorage.setItem('token',token);
+  }
+
+  getToken(){
+    return localStorage.getItem('token');
+  }
+
+  logOut(){
+    localStorage.clear();
+  }
+
+
 }
